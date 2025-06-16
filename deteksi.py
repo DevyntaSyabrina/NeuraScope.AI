@@ -4,7 +4,7 @@ import numpy as np
 import random
 from ultralytics import YOLO
 
-model = YOLO('yolov8n.pt')  # atau 'yolov8s.pt', 'yolov8m.pt', dll.
+model = YOLO('yolov8n')  # tanpa .pt
 
 def get_color(label):
     random.seed(hash(label) % 10000)  # Warna konsisten per label
