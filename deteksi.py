@@ -3,30 +3,17 @@ import torch
 import numpy as np
 import random
 from ultralytics import YOLO
-]
 
-model = YOLO('yolov8n')  # tanpa .pt agar download otomatis
+# Muat model YOLOv8 
+model = YOLO('yolov8n')
 
-def deteksi_objek(image):
-    results = model(image)
-    data = []
-    for r in results:
-        for c in r.boxes.cls:
-            nama = model.names[int(c)]
-            data.append({"nama": nama, "akurasi": round(r.boxes.conf[0].item() * 100, 2)})
-    return data, results[0].plot()
-
-
-def get_color(label):
-    random.seed(hash(label) % 10000)  # Warna konsisten per label
-    return tuple(random.choices(range(50, 255), k=3))
-
+# Fungsi untuk hasil deteksi dan gambar anotasi
 def deteksi_objek(img_pil):
     img_np = np.array(img_pil)
 
     # Lakukan deteksi
     results = model(img_np)
-    deteksi = results.pandas().xyxy[0]
+    deteksi = results[0].boxes
 
     hasil = []
     img_draw = img_pil.convert("RGB").copy()
@@ -37,14 +24,19 @@ def deteksi_objek(img_pil):
     except:
         font = ImageFont.load_default()
 
-    for _, row in deteksi.iterrows():
-        nama = row['name']
-        akurasi = round(row['confidence'] * 100, 2)
-        hasil.append({"nama": nama, "akurasi": akurasi})
+    if deteksi is not None:
+        for i in range(len(deteksi)):
+            box = deteksi[i]
+            cls_id = int(box.cls[0].item())
+            nama = model.names[cls_id]
+            akurasi = round(box.conf[0].item() * 100, 2)
 
-        x1, y1, x2, y2 = map(int, [row['xmin'], row['ymin'], row['xmax'], row['ymax']])
-        draw.rectangle([x1, y1, x2, y2], outline="red", width=2)
-        label = f"{nama} ({akurasi}%)"
-        draw.text((x1 + 4, y1 + 4), label, fill="red", font=font)
+            hasil.append({"nama": nama, "akurasi": akurasi})
+
+            # Koordinat bounding box
+            x1, y1, x2, y2 = map(int, box.xyxy[0])
+            draw.rectangle([x1, y1, x2, y2], outline="red", width=2)
+            label = f"{nama} ({akurasi}%)"
+            draw.text((x1 + 4, y1 + 4), label, fill="red", font=font)
 
     return hasil, img_draw
