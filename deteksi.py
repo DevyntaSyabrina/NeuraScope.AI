@@ -4,13 +4,9 @@ import numpy as np
 import random
 
 # Load model YOLOv5
-import sys
-sys.path.append('./yolov5')
+from ultralytics import YOLO
 
-from models.common import DetectMultiBackend
-import torch
-
-model = DetectMultiBackend('yolov5s.pt', device='cpu')  # atau 'cuda' jika pakai GPU
+model = YOLO('yolov5s.pt')  # Secara otomatis akan mendownload model jika belum ada
 
 def get_color(label):
     random.seed(hash(label) % 10000)  # Konsisten per label
