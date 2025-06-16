@@ -1,5 +1,7 @@
-ultralytics==8.1.0
+ultralytics>=8.1.0
 torch>=1.9
-Pillow
 opencv-python
+Pillow
 streamlit>=1.30.0
+numpy
+matplotlib
