@@ -4,9 +4,10 @@ import numpy as np
 import random
 from ultralytics import YOLO
 
-# Inisialisasi model dari nama (otomatis unduh)
-model = YOLO('yolov5s')  # tanpa .pt lokal, lebih aman untuk deploy
+from ultralytics import YOLO
 
+# Load model dari path lokal
+model = YOLO('models/yolov5s.pt')
 
 def get_color(label):
     random.seed(hash(label) % 10000)  # Warna konsisten per label
