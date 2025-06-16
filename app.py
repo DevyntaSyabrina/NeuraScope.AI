@@ -21,17 +21,11 @@ if "img" not in st.session_state:
     st.session_state.img = None
 if "hasil" not in st.session_state:
     st.session_state.hasil = None
-if "uploaded_file" not in st.session_state:
-    st.session_state.uploaded_file = None
 
-# Tombol reset dan tipe input
-col1, col2 = st.columns([1, 1])
-with col1:
-    input_type = st.radio("Input gambar dari:", ["Upload File", "Kamera"], horizontal=True)
-with col2:
-    if st.button("🔁 Reset"):
-        st.session_state.clear()
-        st.rerun()
+# Tombol reset (tanpa pilihan input lagi)
+if st.button("🔁 Reset"):
+    st.session_state.clear()
+    st.rerun()
 
 # Fungsi proses dan deteksi gambar
 def proses_gambar(input_img):
@@ -43,18 +37,10 @@ def proses_gambar(input_img):
             st.session_state.img = img_hasil
             st.session_state.hasil = hasil
 
-# Input dari file
-if input_type == "Upload File":
-    uploaded_file = st.file_uploader("Upload gambar benda", type=["jpg", "jpeg", "png"])
-    if uploaded_file and uploaded_file != st.session_state.uploaded_file:
-        st.session_state.uploaded_file = uploaded_file
-        proses_gambar(uploaded_file)
-
-# Input dari kamera
-elif input_type == "Kamera":
-    camera_image = st.camera_input("Ambil Gambar 📸")
-    if camera_image:
-        proses_gambar(camera_image)
+# Input hanya dari kamera
+camera_image = st.camera_input("Ambil Gambar 📸")
+if camera_image:
+    proses_gambar(camera_image)
 
 # Tampilkan gambar hasil deteksi dan tabel di tengah menggunakan div center
 if st.session_state.img:
