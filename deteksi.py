@@ -4,7 +4,13 @@ import numpy as np
 import random
 
 # Load model YOLOv5
-model = torch.hub.load('ultralytics/yolov5', pretrained=True)
+import sys
+sys.path.append('./yolov5')
+
+from models.common import DetectMultiBackend
+import torch
+
+model = DetectMultiBackend('yolov5s.pt', device='cpu')  # atau 'cuda' jika pakai GPU
 
 def get_color(label):
     random.seed(hash(label) % 10000)  # Konsisten per label
