@@ -4,7 +4,7 @@ import numpy as np
 import random
 
 # Load model YOLOv5
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
+model = torch.hub.load('ultralytics/yolov5', pretrained=True)
 
 def get_color(label):
     random.seed(hash(label) % 10000)  # Konsisten per label
