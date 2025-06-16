@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image, ImageEnhance
 from deteksi import deteksi_objek
+from modules.deteksi import deteksi_objek
 from header import render_header  # Panggil header dari file terpisah
 
 # Konfigurasi halaman
