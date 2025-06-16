@@ -3,3 +3,4 @@ numpy
 pillow
 matplotlib
 opencv-python
+streamlit>=1.30.0
