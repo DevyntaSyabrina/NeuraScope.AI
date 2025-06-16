@@ -4,3 +4,4 @@ pillow
 matplotlib
 opencv-python
 streamlit>=1.30.0
+ultralytics==8.1.0
