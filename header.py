@@ -3,7 +3,7 @@ import streamlit as st
 def render_header():
     st.markdown("""
         <style>
-        /* Sticky Header Styling - Adjusted Height */
+        /* Sticky Header Styling */
         .sticky-header {
             position: fixed;
             top: 0;
@@ -12,16 +12,16 @@ def render_header():
             background-color: #1f77b4;
             color: white;
             z-index: 9999;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             padding-top: 50px;
-            padding-bottom: 10px;  
+            padding-bottom: 10px;
             text-align: center;
 
-            /* Flexbox untuk centering konten */
+            /* Flexbox for centering */
             display: flex;
             flex-direction: column;
-            justify-content: center;  /* Center secara vertikal */
-            align-items: center;      /* Center secara horizontal */
+            justify-content: center;
+            align-items: center;
         }
 
         .sticky-header h2 {
@@ -30,15 +30,15 @@ def render_header():
         }
 
         .sticky-header h4 {
-            margin: 1px 1 5 10;
+            margin: 5px 0 10px 0; /* top, right/left, bottom */
             font-weight: normal;
             color: #ecf0f1;
             font-size: 16px;
         }
 
-        /* Spacer untuk menyesuaikan konten di bawah header */
+        /* Spacer to offset header height */
         .spacer {
-            margin-top: 120px;  /* Menyesuaikan dengan tinggi header */
+            margin-top: 120px;
         }
 
         @media screen and (max-width: 480px) {
@@ -51,7 +51,7 @@ def render_header():
             }
 
             .spacer {
-                margin-top: 55px;
+                margin-top: 70px;
             }
         }
         </style>
@@ -61,4 +61,4 @@ def render_header():
             <h4>Sistem Cerdas Berbasis AI untuk Deteksi Gambar Otomatis</h4>
         </div>
         <div class="spacer"></div>
-    """, unsafe_allow_html=True) 
+    """, unsafe_allow_html=True)
