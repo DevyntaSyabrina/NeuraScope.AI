@@ -1,8 +1,9 @@
 import streamlit as st
 from PIL import Image, ImageEnhance
+from header import render_header  # Header terpisah
+
+# Hanya satu impor yang dipakai
 from deteksi import deteksi_objek
-from modules.deteksi import deteksi_objek
-from header import render_header  # Panggil header dari file terpisah
 
 # Konfigurasi halaman
 st.set_page_config(layout="centered", page_title="Deteksi Otomatis Benda")
@@ -22,7 +23,7 @@ if "img" not in st.session_state:
 if "hasil" not in st.session_state:
     st.session_state.hasil = None
 
-# Tombol reset (tanpa pilihan input lagi)
+# Tombol Reset
 if st.button("🔁 Reset"):
     st.session_state.clear()
     st.rerun()
@@ -38,11 +39,11 @@ def proses_gambar(input_img):
             st.session_state.hasil = hasil
 
 # Input hanya dari kamera
-camera_image = st.camera_input("Ambil Gambar 📸")
+camera_image = st.camera_input("📸 Ambil Gambar")
 if camera_image:
     proses_gambar(camera_image)
 
-# Tampilkan gambar hasil deteksi dan tabel di tengah menggunakan div center
+# Tampilkan hasil
 if st.session_state.img:
     st.markdown('<div class="center-content">', unsafe_allow_html=True)
     st.image(st.session_state.img, caption="📷 Gambar dengan Hasil Deteksi", width=500)
@@ -54,6 +55,6 @@ if st.session_state.img:
             "Akurasi": [f"{x['akurasi']}%" for x in st.session_state.hasil]
         })
     else:
-        st.info("📥 Gambar sudah dimuat. Namun belum ada hasil deteksi.")
+        st.info("📥 Gambar dimuat tapi tidak ada hasil deteksi.")
 
     st.markdown('</div>', unsafe_allow_html=True)
