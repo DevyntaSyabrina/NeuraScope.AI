@@ -1,6 +1,1 @@
-import sys
-sys.path.append('./yolov5')
 
-from models.common import DetectMultiBackend
-
-model = DetectMultiBackend(weights='yolov5s.pt', device='cpu')
