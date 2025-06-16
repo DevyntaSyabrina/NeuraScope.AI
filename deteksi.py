@@ -3,8 +3,19 @@ import torch
 import numpy as np
 import random
 from ultralytics import YOLO
+]
 
-model = YOLO('yolov8n')  # tanpa .pt
+model = YOLO('yolov8n')  # tanpa .pt agar download otomatis
+
+def deteksi_objek(image):
+    results = model(image)
+    data = []
+    for r in results:
+        for c in r.boxes.cls:
+            nama = model.names[int(c)]
+            data.append({"nama": nama, "akurasi": round(r.boxes.conf[0].item() * 100, 2)})
+    return data, results[0].plot()
+
 
 def get_color(label):
     random.seed(hash(label) % 10000)  # Warna konsisten per label
