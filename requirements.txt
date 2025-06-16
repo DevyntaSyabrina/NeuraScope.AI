@@ -1,0 +1,6 @@
+torch>=1.9
+numpy
+pillow
+matplotlib
+opencv-python
+pip install -r yolov5/requirements.txt
